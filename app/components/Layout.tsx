@@ -1,32 +1,32 @@
+import {Disclosure} from '@headlessui/react';
+import {Await, Form, useMatches, useParams} from '@remix-run/react';
+import {Suspense, useEffect, useMemo} from 'react';
+import {useWindowScroll} from 'react-use';
 import {
-  type EnhancedMenu,
-  type EnhancedMenuItem,
-  useIsHomePath,
-} from '~/lib/utils';
-import {
-  Drawer,
-  useDrawer,
-  Text,
-  Input,
-  IconLogin,
-  IconAccount,
-  IconBag,
-  IconSearch,
-  Heading,
-  IconMenu,
-  IconCaret,
-  Section,
-  CountrySelector,
   Cart,
   CartLoading,
+  CountrySelector,
+  Drawer,
+  Heading,
+  IconAccount,
+  IconBag,
+  IconCaret,
+  IconLogin,
+  IconMenu,
+  IconSearch,
+  Input,
   Link,
+  Section,
+  Text,
+  useDrawer,
 } from '~/components';
-import {useParams, Form, Await, useMatches} from '@remix-run/react';
-import {useWindowScroll} from 'react-use';
-import {Disclosure} from '@headlessui/react';
-import {Suspense, useEffect, useMemo} from 'react';
-import {useIsHydrated} from '~/hooks/useIsHydrated';
 import {useCartFetchers} from '~/hooks/useCartFetchers';
+import {useIsHydrated} from '~/hooks/useIsHydrated';
+import {
+  useIsHomePath,
+  type EnhancedMenu,
+  type EnhancedMenuItem,
+} from '~/lib/utils';
 import type {LayoutData} from '../root';
 
 export function Layout({
@@ -184,11 +184,7 @@ function MobileHeader({
   return (
     <header
       role="banner"
-      className={`${
-        isHome
-          ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
-          : 'bg-contrast/80 text-primary'
-      } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
+      className={`bg-white text-black flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8 py-10`}
     >
       <div className="flex items-center justify-start w-full gap-4">
         <button
@@ -226,12 +222,15 @@ function MobileHeader({
         className="flex items-center self-stretch leading-[3rem] md:leading-[4rem] justify-center flex-grow w-full h-full"
         to="/"
       >
-        <Heading className="font-bold text-center" as={isHome ? 'h1' : 'h2'}>
-          {title}
+        <Heading
+          className="font-bold text-center w-full"
+          as={isHome ? 'h1' : 'h2'}
+        >
+          <img src="logo_erigo.png" width={100} height={100} alt="erigo" />
         </Heading>
       </Link>
 
-      <div className="flex items-center justify-end w-full gap-4">
+      <div className="flex items-center justify-end gap-4 bg-gray-100 rounded-3xl p-2">
         <AccountLink className="relative flex items-center justify-center w-8 h-8" />
         <CartCount isHome={isHome} openCart={openCart} />
       </div>
@@ -255,59 +254,30 @@ function DesktopHeader({
   return (
     <header
       role="banner"
-      className={`${
-        isHome
-          ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
-          : 'bg-contrast/80 text-primary'
-      } ${
-        !isHome && y > 50 && ' shadow-lightHeader'
-      } hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
+      className={`text-black bg-white hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
     >
-      <div className="flex gap-12">
+      <div className="flex gap-12 items-center">
         <Link className="font-bold" to="/" prefetch="intent">
-          {title}
+          <img src="logo_erigo.png" width={100} height={100} alt="erigo" />
         </Link>
-        <nav className="flex gap-8">
-          {/* Top level menu items */}
-          {(menu?.items || []).map((item) => (
-            <Link
-              key={item.id}
-              to={item.to}
-              target={item.target}
-              prefetch="intent"
-              className={({isActive}) =>
-                isActive ? 'pb-1 border-b -mb-px' : 'pb-1'
-              }
-            >
-              {item.title}
-            </Link>
-          ))}
-        </nav>
       </div>
-      <div className="flex items-center gap-1">
-        <Form
-          method="get"
-          action={params.lang ? `/${params.lang}/search` : '/search'}
-          className="flex items-center gap-2"
-        >
-          <Input
-            className={
-              isHome
-                ? 'focus:border-contrast/20 dark:focus:border-primary/20'
-                : 'focus:border-primary/20'
+      <nav className="flex gap-8">
+        {/* Top level menu items */}
+        {(menu?.items || []).map((item) => (
+          <Link
+            key={item.id}
+            to={item.to}
+            target={item.target}
+            prefetch="intent"
+            className={({isActive}) =>
+              isActive ? 'font-bold pb-1 border-b -mb-px' : 'pb-1'
             }
-            type="search"
-            variant="minisearch"
-            placeholder="Search"
-            name="q"
-          />
-          <button
-            type="submit"
-            className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5"
           >
-            <IconSearch />
-          </button>
-        </Form>
+            {item.title}
+          </Link>
+        ))}
+      </nav>
+      <div className="flex items-center gap-1 bg-gray-100 rounded-3xl p-2">
         <AccountLink className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5" />
         <CartCount isHome={isHome} openCart={openCart} />
       </div>
@@ -366,18 +336,14 @@ function Badge({
 
   const BadgeCounter = useMemo(
     () => (
-      <>
+      <div className="bg-black rounded-full p-2 text-white">
         <IconBag />
         <div
-          className={`${
-            dark
-              ? 'text-primary bg-contrast dark:text-contrast dark:bg-primary'
-              : 'text-contrast bg-primary'
-          } absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px`}
+          className={`bg-white absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px`}
         >
-          <span>{count || 0}</span>
+          <span className="text-black">{count || 0}</span>
         </div>
-      </>
+      </div>
     ),
     [count, dark],
   );
