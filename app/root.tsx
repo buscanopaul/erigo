@@ -1,11 +1,4 @@
 import {
-  defer,
-  type LinksFunction,
-  type MetaFunction,
-  type LoaderArgs,
-  type AppLoadContext,
-} from '@shopify/remix-oxygen';
-import {
   Links,
   Meta,
   Outlet,
@@ -15,17 +8,24 @@ import {
   useLoaderData,
   useMatches,
 } from '@remix-run/react';
-import {ShopifySalesChannel, Seo} from '@shopify/hydrogen';
+import {Seo, ShopifySalesChannel} from '@shopify/hydrogen';
+import {Cart, Shop} from '@shopify/hydrogen/storefront-api-types';
+import {
+  defer,
+  type AppLoadContext,
+  type LinksFunction,
+  type LoaderArgs,
+  type MetaFunction,
+} from '@shopify/remix-oxygen';
+import invariant from 'tiny-invariant';
 import {Layout} from '~/components';
+import {seoPayload} from '~/lib/seo.server';
+import favicon from '../public/favicon.svg';
 import {GenericError} from './components/GenericError';
 import {NotFound} from './components/NotFound';
-import styles from './styles/app.css';
-import favicon from '../public/favicon.svg';
-import {seoPayload} from '~/lib/seo.server';
-import {DEFAULT_LOCALE, parseMenu, type EnhancedMenu} from './lib/utils';
-import invariant from 'tiny-invariant';
-import {Shop, Cart} from '@shopify/hydrogen/storefront-api-types';
 import {useAnalytics} from './hooks/useAnalytics';
+import {DEFAULT_LOCALE, parseMenu, type EnhancedMenu} from './lib/utils';
+import styles from './styles/app.css';
 
 export const links: LinksFunction = () => {
   return [
@@ -82,6 +82,16 @@ export default function App() {
         <Seo />
         <Meta />
         <Links />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
       </head>
       <body>
         <Layout
