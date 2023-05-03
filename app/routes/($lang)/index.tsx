@@ -6,6 +6,7 @@ import type {
   ProductConnection,
 } from '@shopify/hydrogen/storefront-api-types';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
+import AboutUs from '~/components/AboutUs';
 import HomeCategories from '~/components/HomeCategories';
 import HomeHeader from '~/components/HomeHeader';
 import {CACHE_SHORT, routeHeaders} from '~/data/cache';
@@ -131,6 +132,7 @@ export default function Homepage() {
     <>
       <HomeHeader />
       <HomeCategories />
+      <AboutUs />
 
       {/* {featuredProducts && (
         <Suspense>
