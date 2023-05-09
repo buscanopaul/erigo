@@ -9,6 +9,7 @@ import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import AboutUs from '~/components/AboutUs';
 import HomeCategories from '~/components/HomeCategories';
 import HomeHeader from '~/components/HomeHeader';
+import HomeInstagram from '~/components/HomeInstagram';
 import {CACHE_SHORT, routeHeaders} from '~/data/cache';
 import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
 import {getHeroPlaceholder} from '~/lib/placeholders';
@@ -133,6 +134,7 @@ export default function Homepage() {
       <HomeHeader />
       <HomeCategories />
       <AboutUs />
+      <HomeInstagram />
 
       {/* {featuredProducts && (
         <Suspense>
