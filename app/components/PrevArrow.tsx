@@ -7,6 +7,7 @@ function PrevArrow(props) {
       style={{
         ...style,
         display: 'block',
+        color: '#707A58',
       }}
     />
   );

@@ -2,7 +2,7 @@ function HomeHeader() {
   return (
     <div className="relative px-12 py-8">
       <div className="flex flex-col lg:flex-row items-center bg-white">
-        <div className="lg:w-1/2 w-full mb-5">
+        <div className="lg:w-1/2 w-full mb-8">
           <h1 className="text-7xl font-bold text-[#707A59]">Made Locally</h1>
           <h1 className="text-7xl font-bold text-[#707A59]">Since 1987</h1>
         </div>

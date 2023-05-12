@@ -2,7 +2,7 @@ import NumbersList from './NumbersList';
 
 function AboutUs() {
   return (
-    <div className="px-12 py-8 flex lg:flex-row flex-col mt-10">
+    <div className="px-12 py-8 flex lg:flex-row flex-col mt-10 text-black">
       <NumbersList />
       <div className="lg:w-2/5 w-full mt-10 lg:mt-0">
         <h2 className="font-bold text-5xl mb-3">About us</h2>

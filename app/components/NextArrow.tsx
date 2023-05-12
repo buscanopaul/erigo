@@ -8,6 +8,7 @@ function NextArrow(props) {
         ...style,
         display: 'block',
         right: 50,
+        color: '#707A58',
       }}
     />
   );

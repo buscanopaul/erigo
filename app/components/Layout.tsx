@@ -5,7 +5,6 @@ import {useWindowScroll} from 'react-use';
 import {
   Cart,
   CartLoading,
-  CountrySelector,
   Drawer,
   Heading,
   IconAccount,
@@ -28,6 +27,7 @@ import {
   type EnhancedMenuItem,
 } from '~/lib/utils';
 import type {LayoutData} from '../root';
+import FooterContact from './FooterContact';
 
 export function Layout({
   children,
@@ -378,16 +378,15 @@ function Footer({menu}: {menu?: EnhancedMenu}) {
       divider={isHome ? 'none' : 'top'}
       as="footer"
       role="contentinfo"
-      className={`grid min-h-[25rem] items-start grid-flow-row w-full gap-6 py-8 px-6 md:px-8 lg:px-12 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-${itemsCount}
-        bg-primary dark:bg-contrast dark:text-primary text-contrast overflow-hidden`}
+      className={`grid min-h-[25rem] items-start grid-flow-row w-full gap-6 py-8 px-6 md:px-8 lg:px-12 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+        bg-white dark:bg-white dark:text-primary text-black overflow-hidden`}
     >
       <FooterMenu menu={menu} />
-      <CountrySelector />
+      <FooterContact />
       <div
-        className={`self-end pt-8 opacity-50 md:col-span-2 lg:col-span-${itemsCount}`}
+        className={`border-t self-end pt-8 opacity-50 md:col-span-1 lg:col-span-8 text-black`}
       >
-        &copy; {new Date().getFullYear()} / Shopify, Inc. Hydrogen is an MIT
-        Licensed Open Source project.
+        &copy; {new Date().getFullYear()} / Paul Lorenz Buscano
       </div>
     </Section>
   );
@@ -396,14 +395,24 @@ function Footer({menu}: {menu?: EnhancedMenu}) {
 const FooterLink = ({item}: {item: EnhancedMenuItem}) => {
   if (item.to.startsWith('http')) {
     return (
-      <a href={item.to} target={item.target} rel="noopener noreferrer">
+      <a
+        href={item.to}
+        target={item.target}
+        rel="noopener noreferrer"
+        className="text-black"
+      >
         {item.title}
       </a>
     );
   }
 
   return (
-    <Link to={item.to} target={item.target} prefetch="intent">
+    <Link
+      to={item.to}
+      target={item.target}
+      prefetch="intent"
+      className="text-black"
+    >
       {item.title}
     </Link>
   );
@@ -415,15 +424,23 @@ function FooterMenu({menu}: {menu?: EnhancedMenu}) {
     nav: 'grid gap-2 pb-6',
   };
 
+  const newMenu = menu?.items.filter((object) => {
+    return object.title !== 'Templates';
+  });
+
   return (
     <>
-      {(menu?.items || []).map((item: EnhancedMenuItem) => (
+      {(newMenu || []).map((item: EnhancedMenuItem) => (
         <section key={item.id} className={styles.section}>
           <Disclosure>
             {({open}) => (
               <>
                 <Disclosure.Button className="text-left md:cursor-default">
-                  <Heading className="flex justify-between" size="lead" as="h3">
+                  <Heading
+                    className="flex justify-between text-black"
+                    size="lead"
+                    as="h3"
+                  >
                     {item.title}
                     {item?.items?.length > 0 && (
                       <span className="md:hidden">
