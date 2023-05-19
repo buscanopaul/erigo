@@ -1,23 +1,23 @@
-import {json, type LoaderArgs} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import type {
-  ProductConnection,
   Collection,
+  ProductConnection,
 } from '@shopify/hydrogen/storefront-api-types';
+import {json, type LoaderArgs} from '@shopify/remix-oxygen';
 import invariant from 'tiny-invariant';
 import {
-  PageHeader,
-  Section,
-  ProductCard,
+  Button,
   Grid,
   Pagination,
+  ProductCard,
+  Section,
   getPaginationVariables,
-  Button,
 } from '~/components';
+import Categories from '~/components/Categories';
+import {CACHE_SHORT, routeHeaders} from '~/data/cache';
 import {PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
 import {getImageLoadingPriority} from '~/lib/const';
 import {seoPayload} from '~/lib/seo.server';
-import {routeHeaders, CACHE_SHORT} from '~/data/cache';
 
 const PAGE_BY = 8;
 
@@ -76,7 +76,7 @@ export default function AllProducts() {
 
   return (
     <>
-      <PageHeader heading="All Products" variant="allCollections" />
+      <Categories />
       <Section>
         <Pagination connection={products}>
           {({

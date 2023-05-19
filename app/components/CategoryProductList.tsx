@@ -1,4 +1,5 @@
 import Slider from 'react-slick';
+import {Link} from './Link';
 
 const DATA = [
   {
@@ -98,20 +99,26 @@ function CategoryProductList() {
     <div>
       <Slider {...settings}>
         {DATA.map((product) => (
-          <div className="pr-5">
-            <div
-              style={{'--image-url': `url(${product.imageURL})`}}
-              className="h-[400px] bg-[image:var(--image-url)] bg-cover bg-right bg-no-repeat"
-            />
-            <div className="flex items-center justify-between mt-2 text-black">
-              <h2 className="font-bold">{product.name}</h2>
-              <h2 className="font-bold">{product.price}</h2>
+          <Link
+            to={`/products/snowboard`}
+            prefetch="intent"
+            className="cursor-pointer pr-5"
+          >
+            <div>
+              <div
+                style={{'--image-url': `url(${product.imageURL})`}}
+                className="h-[400px] bg-[image:var(--image-url)] bg-cover bg-right bg-no-repeat"
+              />
+              <div className="flex items-center justify-between mt-2 text-black">
+                <h2 className="font-bold">{product.name}</h2>
+                <h2 className="font-bold">{product.price}</h2>
+              </div>
+              <div className="flex items-center justify-between text-black">
+                <h2>{product.category}</h2>
+                <h2>{product.likes}</h2>
+              </div>
             </div>
-            <div className="flex items-center justify-between text-black">
-              <h2>{product.category}</h2>
-              <h2>{product.likes}</h2>
-            </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>
